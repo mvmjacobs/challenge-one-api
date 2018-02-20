@@ -21,7 +21,7 @@ api.listUsers = (req, res) => {
 
 	Object.keys(req.query).forEach(key => search[key] = new RegExp(req.query[key], 'i'));
 
-	db.find(search).skip(skip * limit).limit(limit).sort(sort).exec(function (err, doc) {
+	db.users.find(search).skip(skip * limit).limit(limit).sort(sort).exec(function (err, doc) {
 		if (err)
 			res.status(500).json({ success: false, message: err });
 
@@ -36,7 +36,7 @@ api.insertUser = (req, res) => {
 		return;
 
 	delete user._id;
-	db.insert(user, function (err, newDoc) {
+	db.users.insert(user, function (err, newDoc) {
 		if (err)
 			res.status(500).json({ success: false, message: err });
 
@@ -49,7 +49,7 @@ api.updateUser = (req, res) => {
 	if (!req.params.identifier)
 		return res.json({ success: false, message: `parameter identifier can not be null` });
 
-	db.update({ _id: req.params.identifier }, req.body, function (err, numReplaced) {
+	db.users.update({ _id: req.params.identifier }, req.body, function (err, numReplaced) {
 		if (err)
 			return res.json({ success: false, message: err });
 
@@ -64,7 +64,7 @@ api.removeUser = (req, res) => {
 	if (!req.params.identifier)
 		return res.json({ success: false, message: `parameter identifier can not be null` });
 
-	db.remove({ _id: req.params.identifier }, { multi: false }, function (err, numRemoved) {
+	db.users.remove({ _id: req.params.identifier }, { multi: false }, function (err, numRemoved) {
 		if (err)
 			res.status(500).json({ success: false, message: err });
 
@@ -79,7 +79,7 @@ api.getUser = (req, res) => {
 	if (!req.params.identifier)
 		res.json({ success: false, message: `parameter identifier can not be null` });
 
-	db.findOne({ _id: req.params.identifier }, function (err, doc) {
+	db.users.findOne({ _id: req.params.identifier }, function (err, doc) {
 		if (err)
 			res.json({ success: false, message: err });
 
@@ -93,7 +93,6 @@ api.getUser = (req, res) => {
 
 // projetos
 api.listProjects = (req, res) => {
-
 	const search = req.query;
 	const limit = (search.limit) ? parseInt(search.limit) : 10;
 	const skip = (search.page) ? parseInt(search.page) - 1 : 0;
@@ -104,7 +103,7 @@ api.listProjects = (req, res) => {
 
 	Object.keys(req.query).forEach(key => search[key] = new RegExp(req.query[key], 'i'));
 
-	db.find(search).skip(skip * limit).limit(limit).sort(sort).exec(function (err, doc) {
+	db.projects.find(search).skip(skip * limit).limit(limit).sort(sort).exec(function (err, doc) {
 		if (err)
 			res.status(500).json({ success: false, message: err });
 
@@ -119,7 +118,7 @@ api.insertProject = (req, res) => {
 		return;
 
 	delete project._id;
-	db.insert(project, function (err, newDoc) {
+	db.projects.insert(project, function (err, newDoc) {
 		if (err)
 			res.status(500).json({ success: false, message: err });
 
@@ -132,7 +131,7 @@ api.updateProject = (req, res) => {
 	if (!req.params.identifier)
 		return res.json({ success: false, message: `parameter identifier can not be null` });
 
-	db.update({ _id: req.params.identifier }, req.body, function (err, numReplaced) {
+	db.projects.update({ _id: req.params.identifier }, req.body, function (err, numReplaced) {
 		if (err)
 			return res.json({ success: false, message: err });
 
@@ -147,7 +146,7 @@ api.removeProject = (req, res) => {
 	if (!req.params.identifier)
 		return res.json({ success: false, message: `parameter identifier can not be null` });
 
-	db.remove({ _id: req.params.identifier }, { multi: false }, function (err, numRemoved) {
+	db.projects.remove({ _id: req.params.identifier }, { multi: false }, function (err, numRemoved) {
 		if (err)
 			res.status(500).json({ success: false, message: err });
 
@@ -162,7 +161,7 @@ api.getProject = (req, res) => {
 	if (!req.params.identifier)
 		res.json({ success: false, message: `parameter identifier can not be null` });
 
-	db.findOne({ _id: req.params.identifier }, function (err, doc) {
+	db.projects.findOne({ _id: req.params.identifier }, function (err, doc) {
 		if (err)
 			res.json({ success: false, message: err });
 
