@@ -1,13 +1,19 @@
 const Datastore = require('nedb');
-const dbName = 'data.db';
+const projectsName = 'projects.db';
+const usersName = 'users.db'
 let db;
-
 if (!db) {
-	db = new Datastore({
-		filename: dbName,
-		autoload: true
-	});
-	console.log(`Banco ${dbName} pronto para uso`);
+	db = {
+    users : new Datastore({
+                  filename: usersName,
+                  autoload: true
+                }),
+    projects : new Datastore({
+                     filename : projectsName,
+                     autoload : true
+                  })
+  } 
+	console.log(`Banco ${db} pronto para uso`);
 }
 
 module.exports = db;
