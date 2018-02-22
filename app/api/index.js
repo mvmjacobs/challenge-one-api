@@ -69,7 +69,7 @@ api.removeUser = (req, res) => {
 			res.status(500).json({ success: false, message: err });
 
 		if (numRemoved)
-			res.status(200).json({ success: true, message: `${req.params.identifier} success removed` });
+			return res.status(200).json({ success: true, message: `${req.params.identifier} success removed` });
 
 		res.status(500).json({ success: false, message: `can not find user ${req.params.identifier}` });
 	});
@@ -151,7 +151,7 @@ api.removeProject = (req, res) => {
 			res.status(500).json({ success: false, message: err });
 
 		if (numRemoved)
-			res.status(200).json({ success: true, message: `${req.params.identifier} success removed` });
+			return res.status(200).json({ success: true, message: `${req.params.identifier} success removed` });
 
 		res.status(500).json({ success: false, message: `can not find project ${req.params.identifier}` });
 	});
