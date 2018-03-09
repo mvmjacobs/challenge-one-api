@@ -1,5 +1,5 @@
 # Challenge One API
-Restful JSON API using neDB and Node.js.
+Restful JSON API using neDB, Express and Node.js.
  
 ## Quick Start
 ```
